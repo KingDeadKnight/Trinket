@@ -24,7 +24,6 @@ import _thread
 class main():
 
     def __init__(self):
-
         global MAX_STARTTIME
         self.MAX_STARTTIME = 60000
         global MAX_SHUTDOWN_TIME
@@ -43,8 +42,13 @@ class main():
         self.NAME = "Trinket"
         global VERSION
         self.VERSION = "0.0.2-BETA"
+        global COMMANDS
+        self.COMMANDS = []
+        if sys.version_info < (3,9):
+            mainlogger.warning("Please update Python to 3.3")
+            sys.exit(1)
   
-    def timecheck():
+    def timecheck(self, mainlogger):
         while True:
             TIME = self.STARTTIME - int(round(time.time() * 1000))
             if TIME > self.MAX_STARTTIME:
@@ -53,13 +57,9 @@ class main():
                 thread.Thread_Stop()
             sys.exit(1)
         
-    def setWindowName():
+    def setWindowName(self):
         while True:
             ctypes.windll.kernel32.SetConsoleTitleA("Trinket-" + self.VERSION + " | Online " + str(self.CLIENTS.count()) + "/" + str(self.MAXPLAYERS) + " | @ " + Thread.activeCount() + " threads")
-  
-    if sys.version_info < (3,3):
-        mainlogger.warning("Please update Python to 3.3")
-        sys.exit(1)
     
     _thread.start_new_thread(timecheck, ())
     consolethread.__init__("ConsoleThread")
