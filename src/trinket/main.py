@@ -29,6 +29,8 @@ from src.trinket.logger import mainlogger
   STARTTIME = int(round(time.time() * 1000))
   QUEUE = Queue()
   MAXPLAYERS = 20
+  NAME = "Trinket"
+  VERSION = "0.0.2-BETA"
   
   def timecheck():
     while True:
@@ -41,7 +43,7 @@ from src.trinket.logger import mainlogger
         
   def setWindowName():
     while True:
-      ctypes.windll.kernel32.SetConsoleTitleA("Trinket-ALPHA1 | Online " + CLIENTS.count() + "/" + MAXPLAYERS + " | @ " + Thread.activeCount() + " threads")
+      ctypes.windll.kernel32.SetConsoleTitleA("Trinket-" + VERSION + " | Online " + CLIENTS.count() + "/" + MAXPLAYERS + " | @ " + Thread.activeCount() + " threads")
   
   if sys.version_info < (3,3):
     mainlogger.error("Please update Python to 3.3")
