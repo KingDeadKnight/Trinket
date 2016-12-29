@@ -22,15 +22,15 @@ __path__ = extend_path(__path__, __name__)
 from src.trinket.utils import textformat
 from src.trinket.logger import mainlogger
 
-  MAX_STARTTIME = 60000
-  MAX_SHUTDOWN_TIME = 30000
-  THREADS = []
-  CLIENTS = []
-  STARTTIME = int(round(time.time() * 1000))
-  QUEUE = Queue()
-  MAXPLAYERS = 20
-  NAME = "Trinket"
-  VERSION = "0.0.2-BETA"
+  global MAX_STARTTIME = 60000
+  global MAX_SHUTDOWN_TIME = 30000
+  global THREADS = []
+  global CLIENTS = []
+  global STARTTIME = int(round(time.time() * 1000))
+  global QUEUE = Queue()
+  global MAXPLAYERS = 20
+  global NAME = "Trinket"
+  global VERSION = "0.0.2-BETA"
   
   def timecheck():
     while True:
