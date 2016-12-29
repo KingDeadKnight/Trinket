@@ -1,4 +1,4 @@
 language: python
 python: "3.3"
-install: "pip install python3"
+install: "pip install python"
 script: "python travis.py"
