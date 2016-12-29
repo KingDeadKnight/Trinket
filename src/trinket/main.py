@@ -21,6 +21,7 @@ __path__ = extend_path(__path__, __name__)
 
 from src.trinket.utils import textformat
 from src.trinket.logger import mainlogger
+from src.trinket.thread import consolethread
 
   global MAX_STARTTIME = 60000
   global MAX_SHUTDOWN_TIME = 30000
@@ -50,6 +51,7 @@ from src.trinket.logger import mainlogger
     sys.exit(1)
     
   Thread.start_new_thread(timecheck, (,))
+  consolethread.__init__("ConsoleThread", 1337)
   
   
   
