@@ -1,5 +1,7 @@
-from datetime import datetime
+from trinket.utils import textformat
+
 class mainlogger():
-  
-  def warning(message):
-    print(textformat.AQUA + "[" datetime.datetime.utcnow() + "] " + textformat.RED + "[MainLogger/WARNING] " + message + textformat.END)
+
+    @staticmethod
+    def warning(message):
+        print(textformat.AQUA + "[" + "] " + textformat.RED + "[MainLogger/WARNING] " + message + textformat.END)

@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
-from src.trinket.utils import textformat
-from src.trinket import trinket
+from trinket.utils import textformat
+from trinket import main
 
 class commandreader():
-    
+
+    @staticmethod
     def read(cmd):
-      for command in trinket.COMMANDS:
+      for command in main.COMMANDS:
         if cmd == command["name"]:
+            return True
           

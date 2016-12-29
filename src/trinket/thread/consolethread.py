@@ -1,16 +1,16 @@
 #!/usr/bin/python3
-from threading import Thread
+import _thread
 import time
 import sys
-from src.trinket.command import commandreader
+from trinket.command import commandreader
 
-class ConsoleThread(Thread):
+class consolethread():
   
-  def __init__(id, name):
-    Thread.start_new_thread(commandchecker, (,))
+    def __init__(self):
+      _thread.start_new_thread(commandchecker, ())
   
-  def commandchecker():
-    while True:
-      cmd = input("")
-      commandreader.read(cmd)
+    def commandchecker():
+      while True:
+        cmd = input("")
+        commandreader.read(cmd)
       
