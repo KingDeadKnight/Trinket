@@ -1,10 +1,20 @@
 # Trinket.py
+"""""
+  _______   _       _        _    
+ |__   __| (_)     | |      | |   
+    | |_ __ _ _ __ | | _____| |_  
+    | | '__| | '_ \| |/ / _ \ __| 
+    | | |  | | | | |   <  __/ |_  
+    |_|_|  |_|_| |_|_|\_\___|\__| 
+                                                             
+""""
 import time
 from threaded import Thread
 from queue import Queue
 from time import sleep
 import sys
 import socket
+import ctypes
 from pkgutil import extend_path
 
 __path__ = extend_path(__path__, __name__)
@@ -18,6 +28,7 @@ from src.trinket.logger import mainlogger
   CLIENTS = []
   STARTTIME = int(round(time.time() * 1000))
   QUEUE = Queue()
+  MAXPLAYERS = 20
   
   def timecheck():
     while True:
@@ -27,6 +38,10 @@ from src.trinket.logger import mainlogger
         for thread in THREADS:
           thread.Thread_Stop()
         sys.exit(1)
+        
+  def setWindowName():
+    while True:
+      ctypes.windll.kernel32.SetConsoleTitleA("Trinket-ALPHA1 | Online " + CLIENTS.count() + "/" + MAXPLAYERS + " | @ " + Thread.activeCount() + " threads")
   
   if sys.version_info < (3,3):
     mainlogger.error("Please update Python to 3.3")
