@@ -1,4 +1,4 @@
 language: python
 python: "3.3"
-#install: "pip install -r requirements.txt"
+install: "pip install python3"
 script: travis.py
