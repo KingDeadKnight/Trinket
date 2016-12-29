@@ -44,7 +44,7 @@ class main():
         self.VERSION = "0.0.2-BETA"
         global COMMANDS
         self.COMMANDS = []
-        if sys.version_info < (3,9):
+        if sys.version_info < (3,3):
             mainlogger.warning("Please update Python to 3.3")
             sys.exit(1)
   
