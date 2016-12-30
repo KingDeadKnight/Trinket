@@ -1,8 +1,41 @@
+from src.trinket.console import commandreader
+from threading import Thread
+import socket
+import sys
 class trinketserver():
+    global THREADS
+    THREADS = list()
+
     @staticmethod
     def init(ip, port, version = '1.0.0'):
         global interface
+        global host
+        global binded_port
+        global THREADS
+        THREADS = list()
         interface = trinketinterface.init(ip= ip, port= port, version= version)
+        host = ip
+        binded_port = port
+        th = Thread(target=commandreader.read, args=0)
+        th.setDaemon(True)
+        th.start()
+        trinketserver.addThread(th)
+
+    @staticmethod
+    def getIp():
+        return host
+
+    @staticmethod
+    def getPort():
+        return binded_port
+
+    @staticmethod
+    def shutdown(forced = True):
+        serverkiller.kill(forced)
+
+    @staticmethod
+    def addThread(t):
+        THREADS.append(t)
 
 class trinketinterface():
     @staticmethod
@@ -14,9 +47,6 @@ class trinketinterface():
         else:
             return True
 
-from threading import Thread
-import socket
-import sys
 class udpinterface():
     @staticmethod
     def listen():
@@ -47,9 +77,29 @@ class udpinterface():
         global t
         t = Thread(target=udpinterface.listen, args=0)
         t.setDaemon(True)
+        trinketserver.addThread(t)
         try:
             while True:
                 continue #keeps script alive
         except KeyboardInterrupt:
             sys.exit(1)
+
+class serverkiller():
+
+    @staticmethod
+    def kill(force = True):
+        for t in trinketserver.THREADS:
+            if t.isDaemon() == False:
+                t.setDaemon(True)
+                t._stop()
+                trinketserver.THREADS.remove(t)
+            else:
+                t._stop()
+                trinketserver.THREADS.remove(t)
+
+            sys.exit(1)
+
+
+
+
 
