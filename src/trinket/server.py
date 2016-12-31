@@ -89,5 +89,5 @@ class serverkiller():
     @staticmethod
     def kill(force = True):
         print('\033[91m' + '[Trinket/ERROR] ' + 'Server Forcefully Stopping...')
-        os.exit(1)
+        os._exit(1)
 
