@@ -2,6 +2,7 @@ from src.trinket.console import commandreader
 from threading import Thread
 import socket
 import sys
+import os
 class trinketserver():
     global THREADS
     THREADS = list()
@@ -59,9 +60,7 @@ class udpinterface():
                 print(str(d))
             except socket.error:
                 print('\033[91m' + '[Trinket/ERROR] ' + 'Error Listening to Port ')
-                print('\033[91m' + '[Trinket/ERROR] ' + 'Server Forcefully Stopping...')
-                s.shutdown(1)
-                t._stop()
+                serverkiller.kill()
 
 
     @staticmethod
@@ -80,26 +79,15 @@ class udpinterface():
         trinketserver.addThread(t)
         try:
             while True:
-                continue #keeps script alive
-        except KeyboardInterrupt:
-            sys.exit(1)
+                continue
+        except socket.error as msg:
+            print('\033[91m' + '[Trinket/ERROR] ' + str(msg))
+            serverkiller.kill()
 
 class serverkiller():
 
     @staticmethod
     def kill(force = True):
-        for t in trinketserver.THREADS:
-            if t.isDaemon() == False:
-                t.setDaemon(True)
-                t._stop()
-                trinketserver.THREADS.remove(t)
-            else:
-                t._stop()
-                trinketserver.THREADS.remove(t)
-
-            sys.exit(1)
-
-
-
-
+        print('\033[91m' + '[Trinket/ERROR] ' + 'Server Forcefully Stopping...')
+        os.exit(1)
 
